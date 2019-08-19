@@ -7,17 +7,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <c:if test="${empty param.page}">
-        <c:redirect url="${hello}files?page=1"/>
-    </c:if>
-    <title>资料专栏</title>
+    <title>问答专栏</title>
 <%--    <link rel="stylesheet" href="${hello}css&js/bootstrap.min.css">--%>
     <link rel="stylesheet" href="${hello}css&js/login.css" />
     <link href="${hello}css&js/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="${hello}css&js/scrollbar.css" rel="stylesheet" type="text/css" media="all" />
     <link href="${hello}css&js/ddsmoothmenu.css" rel="stylesheet" type="text/css" media="all" />
-    <script  src="${hello}css&js/jquery.min.js"></script>
-    <link href="${hello}css&js/style.css" rel="stylesheet" type="text/css" media="all" />
+<%--    <script  src="${hello}css&js/jquery.min.js"></script>--%>
+<%--    <link href="${hello}css&js/style.css" rel="stylesheet" type="text/css" media="all" />--%>
     <link href="${hello}css/style2.css" rel="stylesheet" type="text/css" media="all" />
     <script src="${hello}layer-v3.1.1/layer/layer.js"></script>
 
@@ -64,6 +61,14 @@
         tr, td {
             vertical-align: middle;
         }
+
+        .page {
+            margin-right: 5px;
+            padding: 7px;
+            border-radius: 2px;
+            border: 1px solid #000000;
+        }
+
     </style>
 
     <style type="text/css">
@@ -72,12 +77,6 @@
         }
         a:hover{
             text-decoration:none;
-        }
-        .page {
-            margin-right: 5px;
-            padding: 7px;
-            border-radius: 2px;
-            border: 1px solid #000000;
         }
     </style>
     <style type="text/css">
@@ -89,7 +88,7 @@
 <%--    <link href='http://fonts.useso.com/css?family=Raleway:400,200,100,300,500,600,700,800,900' rel='stylesheet' type='text/css'>--%>
 <%--    <link href='http://fonts.useso.com/css?family=Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>--%>
 
-<%--    <link href="${hello}css&js/styles.css" rel="stylesheet">--%>
+    <link href="${hello}css&js/styles.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="${hello}css&js/component.css" />
 
     <link href="${hello}css&js/animate.min.css" rel="stylesheet">
@@ -99,7 +98,7 @@
     </script>
     <!-- //animation-effect -->
 
-<%--    <script src="${hello}css&js/jquery.min.js"></script>--%>
+    <script src="${hello}css&js/jquery.min.js"></script>
 <%--    <script src="${hello}css&js/bootstrap.min.js"></script>--%>
 
 </head>
@@ -111,20 +110,17 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a style="font-size:20px;color:#888888" href="${hello}files" id="test">所有</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=计算机系&page=1" id="cpu">计算机系</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=化工学院&page=1" id = "chemical">化工学院</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=农牧学院&page=1" id ="husbandry">农牧学院</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=机械学院&page=1" id="machinery">机械学院</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=财经学院&page=1" id="economy">财经学院</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=医学院&page=1" id="medical">医学院</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=土木学院&page=1" id="build">土木学院</a></li>
-                <li class="active"><a class="scroll" href="${hello}files?name1=其它&page=1">其它</a></li>
-                <%--<li>
-                    <a style="color:#FFFFFF" href="${hello}user"><c:if test="${not empty user}">
-                        ${user.userName}
-                    </c:if> </a>
-                </li>--%>
+                <li class="active"><a style="font-size:20px;color:#888888" href="${hello}column?order=1&page=1" id="test">所有</a></li>
+                <li class="active"><a style="font-size:20px;color:#888888" href="${hello}hot">热门</a></li>
+                <li class="active"><a style="font-size:20px;color:#888888" href="${hello}recommend">推荐</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=计算机系&order=1&page=1" id="cpu">计算机系</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=化工学院&order=1&page=1" id = "chemical">化工学院</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=农牧学院&order=1&page=1" id ="husbandry">农牧学院</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=机械学院&order=1&page=1" id="machinery">机械学院</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=财经学院&order=1&page=1" id="economy">财经学院</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=医学院&order=1&page=1" id="medical">医学院</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=土木学院&order=1&page=1" id="build">土木学院</a></li>
+                <li class="active"><a class="scroll" href="${hello}column?name1=其它&order=1&page=1">其它</a></li>
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <li>
@@ -176,10 +172,20 @@
             /*{title:"桥隧与地下工程",content:["桥梁结构工程与抗震分析","桥隧检测、加固技术与可靠性分析","桥隧工程仿真分析"," 隧道设计理论与优化"," 隧道施工新技术及信息化"], belong:'土木学院'},*/
             {title:"市政工程",content:["道路交通工程","河湖水系工程、地下管线工程","架空杆线工程","街道绿化工程"], belong:'土木学院'}]
     ];
+
     var hide=$('.hidebar');
     var id=0;
     data.forEach(function (item,index) {
         var newnode=$("<div class='hidebar1'></div>");
+        item.forEach(function (item2) {
+            var newUL=$("<ul></ul>");
+            newUL.append($("<li class='title'>"+item2.title+"</li>"));
+            item2.content.forEach(function (item3) {
+                newUL.append($("<li><a style='color: #CCCCCC' href='${hello}column?order=1&page=1&name1=" + item2.belong + "&name2="+item3+"'>"+item3+"</a></li>"));
+                //id++
+            });
+            newnode.append(newUL);
+        });
         hide.append(newnode);
     });
 
@@ -220,93 +226,97 @@
             </div>
             <%--	下方操作按钮组--%>
             <div style="margin-top: 10px">
-                <button class="btn btn-success" id="ishang">上传</button>
-                <c:choose>
-                    <c:when test="${not empty param.order and param.order eq 2 }">
-                        <a style="margin-left: 5px; padding: 10px; color: #646464;" href="${hello}files?name1=${param.name1}&name2=${param.name2}&order=1&page=${param.page}"><span>按时间排序</span></a>
+<%--                <button class="btn btn-success" id="iwant">提问</button>--%>
+                <%--<c:choose>
+                    <c:when test="${not empty param.order and param.order eq 1 }">
+                        <a style="margin-left: 5px; padding: 10px; color: #646464;"
+                           href="${hello}column?name1=${param.name1}&name2=${param.name2}&searchContent=${param.searchContent}&order=2">
+                            <span>按热度排序</span></a>
                     </c:when>
                     <c:otherwise>
-                        <a style="margin-left: 5px; padding: 10px; color: #646464;" href="${hello}files?name1=${param.name1}&name2=${param.name2}&order=2&page=${param.page}"><span>按热度排序</span></a>
+                        <a style="margin-left: 5px; padding: 10px; color: #646464;"
+                           href="${hello}column?name1=${param.name1}&name2=${param.name2}&searchContent=${param.searchContent}&order=1">
+                            <span>按时间排序</span></a>
                     </c:otherwise>
-                </c:choose>
-                <a style="padding: 10px; color: #646464;" href="${hello}column?name1=${param.name1}&name2=${param.name2}&order=1&page=1"><span>问答</span></a>
-                <a style="padding: 10px; color: #646464;"><span>当前栏目：${empty param.name2 ? param.name1 : param.name2}</span></a>
-
+                </c:choose>--%>
+<%--                <a style="padding: 10px; color: #646464;" href="${hello}files?name1=${param.name1}"><span>资料</span></a>--%>
+                <a style="padding: 10px 10px 10px 0; color: #646464;"><span>当前栏目：${columnName}</span></a>
                 <%--<label class="control-label">
                     &nbsp;<input class="form-control" type="text" placeholder="要搜索的内容" name="searchContent" value="${param.searchContent}">
-                </label>
-                <a style="padding: 10px; color: #646464; cursor: pointer" id="search">搜索</a>--%>
+                </label>--%>
+<%--                <a style="padding: 10px; color: #646464; cursor: pointer" id="search">搜索</a>--%>
             </div>
+            <script>
+                $('#search').on('click', function () {
+                    window.location = '${hello}column?name1=${param.name1}&name2=${param.name2}&order=${param.order}&searchContent='
+                        + $("input[name='searchContent']").val();
+                })
+            </script>
         </div>
-
         <hr style=" height:2px;border:none;border-top:2px dotted #808080;" />
         <%--	<hr  style="height:3px;border:none;border-top:5px ridge;" >--%>
         <div id="left" style="background-color: #FFFFFF; padding: 20px; margin-bottom: 15px">
             <div>
-                <c:forEach var="i" items="${files}">
+                <c:forEach var="i" items="${questions}">
                     <div>
                             <%--							<font style="size:20px;color:#989898;">${i.creationTime }</font>--%>
                         <h3>
-                            <a style="color:#1A1A1A" href="${hello}file/detail/${i.md5}">
-                                <img alt="图标" width="50px" src="${hello}images/ge/${i.fileType}.png">
-                                    ${i.fileName }</a>
-                          <small style="color: #ff0080">${i.name1}</small>
+                            <a style="color:#1A1A1A" href="${hello}question/detail/${i.id}">${i.questionName}</a>
+                            <small style="color: #ff0080">${i.name1}</small>
                             <span style="float: right; font-size: 13px; color: #999999">${i.creationTime }</span>
                         </h3><br>
-                        <p class="content-p" style="color:#000000">${i.fileDetail }</p><br>
-                                <p>
-                                    <span>下载：${i.downloadNum}</span>
-                                    <span style="margin-left: 10px">大小: ${i.fileSize}${i.sizeUnit}
-                                </span>
-                                </p>
-                                <%--<span>
-                                    <img onclick="star(${i.md5})" id="clickit" style="cursor:pointer;width:20px;height:20px" src="${hello}image/dianzan1.png"><font style="color:#000000">${i.likenum}</font>&emsp;
-                                    文件大小: ${i.fileSize}${i.sizeUnit}
-                                </span>--%>
-                        <%--<a href="${hello}question/detail/${i.md5}">
+                        <p class="content-p" style="color:#000000">${i.questionContent }</p><br>
+                        <span>
+									<img onclick="star($(this), '${i.id}')" id="clickit" style="cursor:pointer;width:20px;height:20px" src="${hello}image/dianzan1.png">
+									<span>${i.likenum}</span>
+								</span>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="${hello}question/detail/${i.id}">
                             <img style="width:18px;height:18px" src="${hello}image/pinglun.png"><font style="color:#000000">${i.commentNum}</font>
-                        </a>--%>
+                        </a>
                         <hr style=" height:2px;border:none;border-top:2px dotted #808080;" />
                     </div>
                 </c:forEach>
             </div>
         </div>
-            <div class="footer_top_agileits">
-                <div style="float: left; margin-top: 5px;">
-                    <c:if test="${param.page > 1}">
-                        <a href="${hello}files?name1=${param.name1}
+        <div class="footer_top_agileits">
+            <%--<div style="float: left; margin-top: 5px;">
+                <c:if test="${param.page > 1}">
+                    <a href="${hello}column?name1=${param.name1}&name2=${param.name2}&searchContent=${param.searchContent}
 								&order=${param.order}&page=${param.page - 1}" class="page">上一页</a>
-                    </c:if>
-                    <c:forEach begin="1" end="${pages}" step="1" var="i">
-                        <c:choose>
-                            <c:when test="${not empty param.page and i eq param.page or empty param.page and i eq 1}">
-                                <span style="margin-right: 5px">${i}</span>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${hello}files?name1=${param.name1}
+                </c:if>
+                <c:forEach begin="1" end="${pages}" step="1" var="i">
+                    <c:choose>
+                        <c:when test="${not empty param.page and i eq param.page or empty param.page and i eq 1}">
+                            <span style="margin-right: 5px">${i}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${hello}column?name1=${param.name1}&name2=${param.name2}&searchContent=${param.searchContent}
 								&order=${param.order}&page=${i}"
-                                   class="page">
-                                        ${i}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <c:if test="${empty param.page or param.page < pages}">
-                        <a href="${hello}files?name1=${param.name1}
+                               class="page">
+                                    ${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:if test="${empty param.page or param.page < pages}">
+                    <a href="${hello}column?name1=${param.name1}&name2=${param.name2}&searchContent=${param.searchContent}
 						&order=${param.order}&page=${param.page + 1}" class="page">下一页</a>
-                    </c:if>
-                </div>
-                <div style=" float:right" align="center">
+                </c:if>
+            </div>--%>
+            <div style=" float:right" align="center">
 
-                    <a style="margin-top:50px">侵权举报 网上有害信息举报专区</a><p style="margin-top:10px"></p>
-                    <a >违法和不良信息举报：15500545625</a><p style="margin-top:10px"></p>
-                    <a >色情信息举报专区</a><p style="margin-top:10px"></p>
-                    <a>证照中心</a><p style="margin-top:10px"></p>
-                    <a >联系我们 @云易校园知识问答平台</a><p style="margin-top:10px"></p>
+                <a style="margin-top:50px">侵权举报 网上有害信息举报专区</a><p style="margin-top:10px"></p>
+                <a >违法和不良信息举报：15500545625</a><p style="margin-top:10px"></p>
+                <a >色情信息举报专区</a><p style="margin-top:10px"></p>
+                <a>证照中心</a><p style="margin-top:10px"></p>
+                <a >联系我们 @云易校园知识问答平台</a><p style="margin-top:10px"></p>
 
-                </div>
             </div>
+        </div>
     </div>
 </div>
+
+
 
 
 <script type="text/javascript" src="${hello}css&js/move-top.js"></script>
@@ -318,37 +328,47 @@
             $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
         });
     });
+    $('#iwant').on('click',function(){
+        layer.open({
+            type:2,
+            title:'提交问题',
+            maxmin:true,
+            shadeClose:true,
+            area:['60%','90%'],
+            content:'${hello}input.jsp'
+        });
 
+    });
     $('#ishang').on('click',function(){
         layer.open({
             type:2,
             title:'上传资料',
             maxmin:true,
             shadeClose:true,
-            area:['50%','90%'],
+            area:['300px','600px'],
             content:'${hello}answer.jsp'
         });
     });
-    var star = function star (id) {
+    var star = function star (img, id) {
+        var n = img.next();
         $.ajax({
-            url:  '${hello}file/star',
+            url:  '${hello}question/star',
             type: 'post',
             data: {'questionId':id},
             success:function(data) {
                 layer.msg(data.msg);
                 if(data.code === 0)
                 {
-                    $(this).attr('src', '${hello}image/dianzan2.png');
-                    window.location.href=window.location.href;
-                    window.location.reload();
+                    img.attr('src', '${hello}image/dianzan2.png');
+                    n.text(parseInt(n.text()) + 1);
                 }
             }
         });
-    };
+    }
 
 
 
-    /*var div_x_1 = 230;
+    var div_x_1 = 230;
     var div_y_1 = 50;
     var act=$('.active .scroll');
     for(let i=0;i<7;++i){
@@ -383,8 +403,7 @@
 
 
         });
-    }*/
-
+    }
     $('p>img').css('width', '48px');
 </script>
 
